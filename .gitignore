@@ -1,0 +1,12 @@
+# Node Module File
+node_modules/
+
+#  IDE Folder
+.DS_store
+.vscode
+
+# Compiled files
+
+dist
+build
+.history

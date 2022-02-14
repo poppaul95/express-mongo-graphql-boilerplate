@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "downlevelIteration": true,
+    "declaration": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "noImplicitAny": false,
+    "outDir": "./build",
+    "paths": {
+      "@/*": ["*"],
+      "@mappers/*": ["mappers/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@models/*": ["models/*"],
+      "@resolvers/*": ["resolvers/*"],
+      "@schemas/*": ["schemas/*"],
+      "@types/*": ["types/*"],
+      "@utils/*": ["utils/*"]
+    },
+    "pretty": true,
+    "target": "es6",
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "strict": true,
+    "typeRoots": ["node_modules/@types"]
+  },
+  "include": ["src/**/*.ts", "src/**/*.json", ".env"],
+  "exclude": ["node_modules"]
+}
