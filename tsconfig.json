@@ -25,6 +25,6 @@
     "strict": true,
     "typeRoots": ["node_modules/@types"]
   },
-  "include": ["src/**/*.ts", "src/**/*.json", ".env"],
+  "include": ["src/**/*.ts", "test/**/*.ts", "src/**/*.json", ".env"],
   "exclude": ["node_modules"]
 }
