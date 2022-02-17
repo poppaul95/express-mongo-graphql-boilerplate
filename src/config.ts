@@ -5,7 +5,6 @@ export const CREDENTIALS = process.env.CREDENTIALS === 'true';
 
 const { NODE_ENV, PORT, DB_URL, ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET, APP_TOKEN, ORIGIN } = process.env;
 
-
 export const appConfig = {
     accessTokenSecret: ACCESS_TOKEN_SECRET || '',
     appToken: APP_TOKEN || '',

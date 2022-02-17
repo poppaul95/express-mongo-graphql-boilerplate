@@ -30,7 +30,7 @@ const user = gql`
     extend type Mutation {
         signup(email: String!, password: String!, name: String!): AuthResponse
         login(email: String!, password: String!): AuthResponse
-        editUser(id: String!, data: editUserInput): String
+        editUser(id: String!, data: editUserInput): User
         deleteUser(id: String!): String
     }
 `;

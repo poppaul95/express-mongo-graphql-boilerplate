@@ -19,13 +19,6 @@ const userResolver = {
     },
     Mutation: {
         signup: async (parent, args) => {
-            if (!args.password) {
-                throw new CustomError('Email Required', ErrorTypes.invalidUsernamePassword);
-            }
-            if (!args.email) {
-                throw new CustomError('Email Required', ErrorTypes.invalidUsernamePassword);
-            }
-
             const isEmailValid = args.email.toLowerCase().match(EMAIL_REGEX);
 
             if (!isEmailValid) {
@@ -35,13 +28,12 @@ const userResolver = {
             const checkUniqueUser = await UsersMapper.getUser({
                 email: args.email,
             });
-
             if (checkUniqueUser) {
                 throw new CustomError('Email already esists', ErrorTypes.duplicateUsername);
             }
             const user = await UsersMapper.createUser(args);
             const response = setToken(user);
-            return { ...response, name: user.name, role: user.role };
+            return { ...response, ...user };
         },
         login: async (parent, args) => {
             const user = await UsersMapper.getUser({ email: args.email });
@@ -49,7 +41,7 @@ const userResolver = {
                 throw new CustomError('Email not registered', ErrorTypes.invalidUsernamePassword);
             }
             if (!user.verifyPassword(args.password)) {
-                throw new AuthenticationError('Wrong login credentials');
+                throw new CustomError('Invalid login credentials', ErrorTypes.invalidUsernamePassword);
             }
             const response = setToken(user);
             return { ...response, name: user.name, role: user.role, id: user.id, email: user.email };
@@ -63,8 +55,7 @@ const userResolver = {
                     throw new CustomError('User not found', ErrorTypes.notFound);
                 }
 
-                await UsersMapper.updateUser({ _id: args.id }, args.data);
-                return 'Succesfully saved.';
+                return UsersMapper.updateUser({ _id: args.id }, args.data);
             } catch (error) {
                 throw new CustomError('Could not edit user', ErrorTypes.internalError);
             }

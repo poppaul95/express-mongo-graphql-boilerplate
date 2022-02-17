@@ -1,6 +1,9 @@
 # Node Module File
 node_modules/
 
+# Tests coverage files
+coverage
+
 #  IDE Folder
 .DS_store
 .vscode
@@ -10,3 +13,6 @@ node_modules/
 dist
 build
 .history
+
+# Lock file
+yarn.lock

@@ -2,12 +2,16 @@ import User, { IUser } from '@models/User';
 import { Roles } from '@schemas/role';
 import { getAll } from '@/utils/database'
 import { CustomError, ErrorTypes } from '@utils/errors'
+import { locatedError } from 'graphql';
 
 class UserMapperClass {
     public async getUsers() {
         try {
+            console.log('ok1')
             return await getAll(User);
+
         } catch (error) {
+            console.log('ok2')
             throw new CustomError(`${error}`, ErrorTypes.internalError)
         }
     }
@@ -32,21 +36,13 @@ class UserMapperClass {
     }
 
     public async updateUser(query, data) {
-        User.findOneAndUpdate(query, data, { upsert: true }, (error, doc) => {
-            if (error) {
-                throw new CustomError(`${error}`, ErrorTypes.internalError)
-            }
-            return 'Succesfully saved.';
-        });
+        const updatedUser = await User.findOneAndUpdate(query, data, { upsert: true })
+        return updatedUser || new CustomError('Could not update the user', ErrorTypes.internalError)
     }
 
     public async deleteUser(query) {
-        User.findOneAndDelete(query, (error, doc) => {
-            if (error) {
-                throw new CustomError(`${error}`, ErrorTypes.internalError)
-            }
-            return 'Succesfully deleted.';
-        });
+        const deletedUser = await User.findOneAndDelete(query)
+        return deletedUser ? 'Succesfully Deleted.' : new CustomError('Could not update the user', ErrorTypes.internalError)
     }
 
     private getData(filter) {
