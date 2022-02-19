@@ -15,8 +15,9 @@ jobs:
     steps:
       - checkout
       - run: npm install
-      - run: npm jest
-      - run: npm rest
+      - run: npm lint
+      - run: npm test
+      - run: npm coverage
 
 
 # Invoke jobs via workflows
